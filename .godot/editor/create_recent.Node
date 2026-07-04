@@ -1,0 +1,14 @@
+Node
+Timer
+CollisionShape2D
+Area2D
+Sprite2D
+RichTextLabel
+CollisionPolygon2D
+RigidBody2D
+AnimatedSprite2D
+AnimationPlayer
+Label
+Camera2D
+TileMapLayer
+Control
