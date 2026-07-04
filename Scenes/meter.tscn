@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://dky53gha176w6"]
+
+[ext_resource type="Texture2D" uid="uid://b6f2g4da7jsea" path="res://Assets/Sprites/tileset.png" id="1_l6s6w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lbn3e"]
+atlas = ExtResource("1_l6s6w")
+region = Rect2(176, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qw7jr"]
+atlas = ExtResource("1_l6s6w")
+region = Rect2(64, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tl74q"]
+atlas = ExtResource("1_l6s6w")
+region = Rect2(80, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mq8bt"]
+atlas = ExtResource("1_l6s6w")
+region = Rect2(96, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4u357"]
+atlas = ExtResource("1_l6s6w")
+region = Rect2(112, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjs1k"]
+atlas = ExtResource("1_l6s6w")
+region = Rect2(128, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifien"]
+atlas = ExtResource("1_l6s6w")
+region = Rect2(144, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3hvam"]
+atlas = ExtResource("1_l6s6w")
+region = Rect2(160, 64, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gi4hw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lbn3e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qw7jr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tl74q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mq8bt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4u357")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gjs1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ifien")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3hvam")
+}],
+"loop": true,
+"name": &"all_eight",
+"speed": 4.0
+}]
+
+[node name="Meter" type="Node2D" unique_id=1175406102]
+
+[node name="anim_player" type="AnimatedSprite2D" parent="." unique_id=979224437]
+z_index = 1
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_gi4hw")
+animation = &"all_eight"
+frame_progress = 0.7951709

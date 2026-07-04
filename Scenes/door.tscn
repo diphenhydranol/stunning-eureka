@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://blrtngpy0bv6c"]
+
+[ext_resource type="Texture2D" uid="uid://dnqyox4xenxpj" path="res://Assets/Sprites/door.png" id="1_ba8gm"]
+[ext_resource type="Script" uid="uid://djn7mguvk61n2" path="res://Scripts/door.gd" id="1_fahql"]
+[ext_resource type="Texture2D" uid="uid://cciydhi2rmd12" path="res://Assets/Sprites/door2.png" id="2_v6xrn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0phs7"]
+size = Vector2(20, 32)
+
+[node name="Door" type="Node2D" unique_id=64237799]
+script = ExtResource("1_fahql")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1404812295]
+position = Vector2(0, -16)
+texture = ExtResource("1_ba8gm")
+offset = Vector2(1, 0)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1783333584]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=321522071]
+position = Vector2(3, -16)
+scale = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_0phs7")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=833273532]
+visible = false
+position = Vector2(8, -16)
+texture = ExtResource("2_v6xrn")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

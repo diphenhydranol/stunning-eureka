@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://buaop7q61mhlu"]
+
+[ext_resource type="Script" uid="uid://ctd6f16jxjp0w" path="res://Scripts/atom.gd" id="1_6ltoe"]
+[ext_resource type="Texture2D" uid="uid://7vd2tjo3wgg8" path="res://Assets/Sprites/atom.png" id="1_cdecr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ltoe"]
+size = Vector2(8, 8)
+
+[node name="atom" type="Node2D" unique_id=725659029]
+script = ExtResource("1_6ltoe")
+
+[node name="atom_sprite" type="Sprite2D" parent="." unique_id=196481870]
+texture = ExtResource("1_cdecr")
+
+[node name="bounding_box" type="Area2D" parent="." unique_id=422583335]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bounding_box" unique_id=798961280]
+shape = SubResource("RectangleShape2D_6ltoe")
+
+[node name="Timer1" type="Timer" parent="." unique_id=397051676]
+wait_time = 0.7
+autostart = true
+
+[connection signal="body_entered" from="bounding_box" to="." method="_on_bounding_box_body_entered"]
+[connection signal="timeout" from="Timer1" to="." method="_on_timer_1_timeout"]
