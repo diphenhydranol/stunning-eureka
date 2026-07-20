@@ -9,9 +9,11 @@ var chemistry_enabled: bool = 0
 var cap: int = 100
 var counter: int = -1
 var elements: Array = [null,0,0]
-var chance: int = 0
+var chance: Array = [null,0,0]
+var focus: int = 1
 
 #b0857c is hydrogen
+#b2a59c is helium
 
 @onready var points_label: RichTextLabel = $Labels/points_label
 @onready var timer_1: Timer = $Timers/Timer1
@@ -31,10 +33,13 @@ var chance: int = 0
 @onready var reactor_part_1: Sprite2D = $reactor/reactor_part1
 @onready var reactor_part_2: Sprite2D = $reactor/reactor_part2
 @onready var reactor_part_3: Sprite2D = $reactor/reactor_part3
+@onready var reactor_blank: Sprite2D = $reactor/reactor_blank
+@onready var main_buy_label: RichTextLabel = $Labels/main_buy_label
 
-func add_point(amount):
+func add_point(amount: int):
 	if points == cap and amount > 0:
 		cap_label.visible = 1
+		anim_player.frame = 0
 		anim_player.pause()
 		timer_1.stop()
 	elif (cap - points) < amount:
@@ -42,6 +47,7 @@ func add_point(amount):
 	else:
 		if cap_label.visible and amount < 0:
 			cap_label.visible = 0
+			anim_player.frame = 1
 			anim_player.play()
 			timer_1.start()
 		points += amount
@@ -53,6 +59,7 @@ func auto_trigger():
 	meter.visible = 1
 	auto_cost_label.queue_free()
 	multi_cost_label.visible = 1
+	anim_player.frame = 1
 	anim_player.play("all_eight")
 	timer_1.start(2.0)
 
@@ -64,6 +71,8 @@ func buy_mult():
 	multi_cost_label.visible = 0
 	if mult_amount == 1:
 		chem_label_1.visible = 1
+	if mult_amount == 2:
+		main_buy_label.visible = 1
 
 func _on_timer_1_timeout() -> void:
 	add_point(add_amount)
@@ -76,6 +85,8 @@ func begin_chemistry():
 	chem_label_1.queue_free()
 	multi_cost_label.visible = 1
 	multi_cost_label.bbcode_text = "Cost: [color=red]200[/color] Points (Multi)"
+	baklava.set_cell(Vector2i(7, 15), 0, Vector2i(1, 0))
+	baklava.set_cell(Vector2i(7, 14), 0, Vector2i(1, 0))
 
 func first_hydrogen():
 	timer_2.start(1.5)
@@ -95,25 +106,34 @@ func _on_timer_2_timeout() -> void:
 			baklava.set_cell(Vector2i(33 + i, 12), 0, Vector2i(4 + i, 0))
 	if counter == 2:
 		element_amount_label.visible = 1
-		element_amount_label.bbcode_text = "[color=#b0857c]H: " + str(elements[1]) + "\n(" + str(chance * 10) + "%)"
+		element_amount_label.bbcode_text = "[color=#b0857c]H: " + str(elements[1]) + "\n(" + str(chance[1] * 10) + "%)"
 		element_cost_label.visible = 1
 		timer_2.stop()
 
 func add_element(element: int, amount: int):
 	elements[element] += amount
-	element_amount_label.bbcode_text = "[color=#b0857c]H: " + str(elements[1]) + "\n(" + str(chance * 10) + "%)"
+	if focus == 1:
+		element_amount_label.bbcode_text = "[color=#b0857c]H: " + str(elements[1]) + "\n(" + str(chance[1] * 10) + "%)"
 
-func increase_chance(_element: int):
-	chance += 1
-	add_element(1, -1)
-	if chance == 1:
+func increase_chance(element: int):
+	counter += 1
+	chance[element] += 1
+	if chance[element] == 1:
+		add_element(element, -1)
 		meter_2.visible = 1
+		anim_player_2.frame = 1
 		anim_player_2.play("all_eight")
 		timer_3.start(2.0)
 		element_cost_label.bbcode_text = "Cost: 5 [color=#b0857c]H[/color] \n(Part 1)"
+	if element == 1 and chance[element] == 2:
+		element_cost_label.bbcode_text = "Cost: 25 [color=#b0857c]H[/color] \n(Part 3)"
+		element_cost_label.visible = 1
+		add_point(-300)
+		add_element(element, 0)
+		main_buy_label.bbcode_text = "Cost: ???\n(Coming Soon)"
 
 func _on_timer_3_timeout() -> void:
-	if (randi() % 10) < chance:
+	if (randi() % 10) < chance[1]:
 		add_element(1, 1)
 
 func add_part(part: int):
@@ -121,4 +141,34 @@ func add_part(part: int):
 	if part == 1:
 		add_element(1, -5)
 		reactor_part_1.visible = 1
+		element_cost_label.bbcode_text = "Cost: 10 [color=#b0857c]H[/color] \n(Increase Cap)"
+	if part == 2:
+		add_point(-250)
+		main_buy_label.text = "Cost: 300\n(Atom Chance)"
+		reactor_part_2.visible = 1
+	if part == 3:
+		add_element(1, -25)
+		reactor_part_3.visible = 1
+		reactor_blank.visible = 0
+		element_cost_label.bbcode_text = "Cost: 10 [color=#b0857c]H[/color] \n(Fuse for He)"
+
+func fuse(element1: int, element2: int):
+	counter += 1
+	if element1 == element2 and element1 == 1:
+		#counter should be 9 after this occurs
+		add_element(1, -10)
+		add_element(2, 1)
+		focus = 2
+		element_amount_label.bbcode_text = "[color=#b2a59c]He: " + str(elements[2]) + "\n(" + str(chance[2] * 10) + "%)"
+
+func increase_cap(times: int):
+	if times == 1:
+		cap = 300
+		add_element(1, -10)
+		cap_label.visible = 0
+		anim_player.frame = 1
+		anim_player.play()
+		timer_1.start()
+		multi_cost_label.bbcode_text = "Cost: 200 Points (Multi)"
 		element_cost_label.visible = 0
+		counter += 1

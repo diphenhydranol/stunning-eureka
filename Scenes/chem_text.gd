@@ -18,17 +18,6 @@ func toggle_button():
 
 func _on_area_2d_body_entered(_body: Node2D) -> void:
 	toggle_button()
-	if not king.auto_enabled:
-		if king.points >= 20:
-			king.auto_trigger()
-	if king.points >= king.mult_cost:
-		king.buy_mult()
-	if king.points >= 100 and not king.chemistry_enabled:
-		king.begin_chemistry()
-	if king.points >= 250 and king.counter == 5:
-		king.add_part(2)
-	if king.points >= 300 and king.counter == 6:
-		king.increase_chance(1)
 
 func _on_area_2d_body_exited(_body: Node2D) -> void:
 	toggle_button()
