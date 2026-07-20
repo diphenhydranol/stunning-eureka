@@ -1,5 +1,5 @@
 INSTRUCTIONS TO RUN:
-Download the "Untilted_alpha.exe" file (DO NOT download the whole project as a .zip, just the .exe file), right next to the "Final Run" text. Run that .exe (it's safe, I promise) and there you go!
+Download the "Untilted_alpha.exe" file (DO NOT download the whole project as a .zip, just the .exe file), right next to the "Super secret fusion update" text. Run that .exe (it's safe, I promise) and there you go!
 
 This is a shitty little incremental game that I wanted to make. It's made using Godot, and since the tutorial I first followed used a 2D platformer thing, I decided to make the game using platformer mechanics instead of a collection of buttons. It's the most of an idle/incremental game I've ever made, so I'm having fun with it.
 
