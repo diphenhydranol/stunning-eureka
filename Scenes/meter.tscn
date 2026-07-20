@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dky53gha176w6"]
 
-[ext_resource type="Texture2D" uid="uid://b6f2g4da7jsea" path="res://Assets/Sprites/tileset.png" id="1_l6s6w"]
+[ext_resource type="Texture2D" uid="uid://l2ggf3dog4ye" path="res://Assets/Sprites/tileset.png" id="1_l6s6w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lbn3e"]
 atlas = ExtResource("1_l6s6w")
@@ -61,7 +61,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3hvam")
 }],
-"loop": true,
+"loop": 1,
 "name": &"all_eight",
 "speed": 4.0
 }]
@@ -73,4 +73,4 @@ z_index = 1
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_gi4hw")
 animation = &"all_eight"
-frame_progress = 0.7951709
+frame_progress = 0.62023157
